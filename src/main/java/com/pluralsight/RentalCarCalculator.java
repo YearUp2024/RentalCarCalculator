@@ -15,11 +15,10 @@ public class RentalCarCalculator {
         short age = promptUserForAge("How old are you: ");
 
         //Calculating const's
-        double basicCarRentalFee = 29.99;
+        double basicCarRentalFee = 29.99 * numberOfDays;
         double totalOptionsFee = optionalFees(needsTolltag, needsGPD, needsRoadSideAssistance);
         double underAgeSurcharge = checkUserAge(age, basicCarRentalFee);
-        double dailyCost = basicCarRentalFee + totalOptionsFee + underAgeSurcharge;
-        double totalCost = (basicCarRentalFee + totalOptionsFee + underAgeSurcharge) * numberOfDays;
+        double totalCost = basicCarRentalFee + totalOptionsFee + underAgeSurcharge;
 
         //Printing in the console
         System.out.println("");
@@ -27,7 +26,6 @@ public class RentalCarCalculator {
         System.out.printf("Optional Fees:          %.2f\n", totalOptionsFee);
         System.out.printf("Underage Surcharge Fee: %.2f\n", underAgeSurcharge);
         System.out.println("------------------------------------------------");
-        System.out.printf("Daily Const:            %.2f\n", dailyCost);
         System.out.printf("Toal:                   %.2f\n", totalCost);
     }
 
@@ -61,14 +59,18 @@ public class RentalCarCalculator {
     //This is calculating Total optional fee
     public static double optionalFees(boolean needsTolltag, boolean needsGPD, boolean needsRoadSideAssistance){
         double total = 0.0;
+        double electronicTollTag = 3.95;
+        double GPS = 2.95;
+        double roadsideAssistanc = 3.95;
+
         if(needsTolltag == true){
-            total += 3.95;
+            total += electronicTollTag;
         }
         if(needsGPD == true){
-            total += 2.95;
+            total += GPS;
         }
         if(needsRoadSideAssistance == true){
-            total += 3.95;
+            total += roadsideAssistanc;
         }
         return total;
     }
@@ -76,8 +78,9 @@ public class RentalCarCalculator {
     //This is calculating Underage Surcharge
     public static double checkUserAge(short age, double basicCarRentalFee){
         double underageSurchage = 0;
+        double BasicCarRentalSurcharge = 0.3;
         if(age < 25){
-            underageSurchage = basicCarRentalFee * 0.3;
+            underageSurchage = basicCarRentalFee * BasicCarRentalSurcharge;
         }
         return underageSurchage;
     }
